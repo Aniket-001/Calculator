@@ -1,0 +1,46 @@
+
+// light theme
+$main-background-color1: #D1DAE5;
+$clock-color1: #423c3c;
+$screen-background-color1: #E0E6ED;
+$keypad-color1: #fff ;
+$screen-text-color1: #000;
+$shadow-color1: #363434;
+$num-color1: #1976d2;
+
+
+
+//dark theme
+$main-background-color2: #1E1E1E;
+$clock-color2: #fff;
+$screen-background-color2: #212327;
+$keypad-color2: #27292E;
+$screen-text-color2: #fff;
+$shadow-color2: #4e4d4d;
+$num-color2: #fff;
+
+
+//through out same
+$clock-shadow-color:#30A4A2;
+
+
+
+///theme pallete
+.main[data-theme="light"] {
+    --main-background-color: #{$main-background-color1};
+    --clock-color: #{$clock-color1};
+    --screen-background-color: #{$screen-background-color1};
+    --keypad-color: #{$keypad-color1};
+    --screen-text-color: #{$screen-text-color1};
+    --shadow-color: #{$shadow-color1};
+    --num-color: #{$num-color1};
+}
+.main[data-theme="dark"] {
+    --main-background-color: #{$main-background-color2};
+    --clock-color: #{$clock-color2};
+    --screen-background-color: #{$screen-background-color2};
+    --keypad-color: #{$keypad-color2};
+    --screen-text-color: #{$screen-text-color2};
+    --shadow-color: #{$shadow-color2};
+    --num-color: #{$num-color2};
+}
