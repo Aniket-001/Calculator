@@ -8,9 +8,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'react-toastify/dist/ReactToastify.min.css';
 
 
-function isNumeric(str) {
-  return !isNaN(parseFloat(str)) && isFinite(str);
-}
 
 
 const Calculator = () => {
@@ -25,6 +22,7 @@ const Calculator = () => {
   useEffect(() => {
     inputRef.current.focus();
     setScreen("0");
+    navigator.virtualKeyboard.hide();
   },[val1]);
   
   const notify=(txt) =>{ toast(txt)};
@@ -32,7 +30,8 @@ const Calculator = () => {
   const setValue = (e)=>{
     const content = e.target.innerText;
     if(screen==='0'){
-      if(content!='-'){
+      if(val1.length!=0 && !isNaN(val1)) setScreen(content);
+      else if(content!='-'){
         notify("Invalid Operation!");
         return;
       }
@@ -43,12 +42,14 @@ const Calculator = () => {
       const str = screen+content;
       dispatch(setNumber({data:str}));    
     }
+    navigator.virtualKeyboard.hide();
   }
 
   const typeNumber =(e)=>{
     const str = (screen==='0'?"":screen)+e.target.innerText;
     setScreen(str);
     inputRef.current.focus();
+    navigator.virtualKeyboard.hide();
   }
 
 
@@ -59,6 +60,7 @@ const Calculator = () => {
       <div className="calc">
         <div className="screen">
           <div className="screen1">{val1}</div>
+          
           <input ref={inputRef} type="text" autoFocus 
           onChange={(e)=>{
             if(e.target.value==="") setScreen("0");
@@ -166,4 +168,6 @@ history
 9- = -9
 -9 = 9
 -9 = 9-
+
+4 = -6-
 */

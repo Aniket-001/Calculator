@@ -52,6 +52,8 @@
                 border: none;
                 color: var(--screen-text-color);
                 background-color: transparent;
+                max-width: 100%;
+                word-wrap: break-word;
             }
         }
     
