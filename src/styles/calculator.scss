@@ -53,7 +53,14 @@
                 color: var(--screen-text-color);
                 background-color: transparent;
                 max-width: 100%;
-                word-wrap: break-word;
+                
+                // scroll-behavior: auto;
+                resize: none;
+                overflow: auto;
+                ::-webkit-scrollbar {
+                    display: none;
+                  }
+
             }
         }
     
@@ -99,4 +106,3 @@
     font-size: 18px;
     width:2rem;
 }
-

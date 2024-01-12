@@ -24,9 +24,11 @@ const Calculator = () => {
     setScreen("0");
     navigator.virtualKeyboard.hide();
   },[val1]);
-  
+
+  //toast notification
   const notify=(txt) =>{ toast(txt)};
  
+  // set the values to the mini screen
   const setValue = (e)=>{
     const content = e.target.innerText;
     if(screen==='0'){
@@ -45,8 +47,14 @@ const Calculator = () => {
     navigator.virtualKeyboard.hide();
   }
 
+
+  //make keypad work according to the key pressed
   const typeNumber =(e)=>{
     const str = (screen==='0'?"":screen)+e.target.innerText;
+    if(Number(str)<=Number.MIN_VALUE && Number(str)>=Number.MAX_VALUE) {
+      notify("Exceeds the range");
+      return;
+    }
     setScreen(str);
     inputRef.current.focus();
     navigator.virtualKeyboard.hide();
@@ -61,7 +69,8 @@ const Calculator = () => {
         <div className="screen">
           <div className="screen1">{val1}</div>
           
-          <input ref={inputRef} type="text" autoFocus 
+
+        <textarea id="txt" value={screen} autoFocus ref ={inputRef} 
           onChange={(e)=>{
             if(e.target.value==="") setScreen("0");
             else if(Number.isNaN(Number(e.target.value)) ){
@@ -70,7 +79,7 @@ const Calculator = () => {
             }
             else setScreen(""+parseInt(e.target.value,10));
           }}
-          value={screen} />
+        />
         </div>
       
         <Button className='ac' 
@@ -156,18 +165,3 @@ const Calculator = () => {
 export default Calculator;
 
 
-/* featuer
-
-overflow handle
-divide by 0
-keyboard number
-notification toast
-toggle theme
-history
-
-9- = -9
--9 = 9
--9 = 9-
-
-4 = -6-
-*/

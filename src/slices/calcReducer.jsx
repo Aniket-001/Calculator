@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 const prev = localStorage.getItem("theme") || "light";
 const chk = localStorage.getItem("check") || "false";
 
-
+//perform the operation
 const calculation = (val1,val2,op='+') =>{
     let ans;
     op = (op.length==0)?'+':op;
@@ -15,13 +15,15 @@ const calculation = (val1,val2,op='+') =>{
     return ans;
 } 
 
+
+// verify the operation
 const verify =(ans)=>{
-    if(isNaN(ans) ){
-        toast("Invalid Operation!!");
+    if(!isFinite(ans)){
+        toast("Maximum limit Exceed!!");
         return false;
     }
-    else if(!isFinite(ans)){
-        toast("Maximum limit Exceed!!");
+    else if(isNaN(ans) ){
+        toast("Invalid Operation!!");
         return false;
     }
     return true;
@@ -32,15 +34,21 @@ const calcReducer = createSlice({
     name:'calc',
     initialState:{num:"",check:chk,theme:prev},
     reducers :{
-        setNumber(state,{payload}){
-            if(state.num.length==0) state.num =  payload.data;
-            else{//9 -9- 9- -9-
+        setNumber(state,{payload}){//when a operator is pressed the value is set to num 
+            if(state.num.length==0){ 
+                let str =  payload.data;
+                let op = str[str.length-1];
+                str = str.substring(0,str.length-1);
+                str = Number(str);
+                if(verify(str)) state.num = ""+str+op;
+            }
+            else{
                 let str1 = payload.data;
                 let str2 = state.num;
                 let op1 = str1[str1.length-1];
                 let op2 = str2[str2.length-1];
                 op2 = (op2=='-' || op2=='+' || op2=='*' || op2==String.fromCharCode(247) )?op2:"";
-                str2 = (op2.length==0)?str2:str2.substring(0, str1.length - 1);
+                str2 = (op2.length==0)?str2:str2.substring(0, str2.length - 1);
                 str1 = str1.substring(0, str1.length - 1);
                 let val1 = +str1;
                 let val2 = +str2;
@@ -49,8 +57,17 @@ const calcReducer = createSlice({
                 else state.num = ans+""+op1;
             }
         },
-        evaluate(state,action){
-            if(state.num.length==0 || state.num=='0') state.num =  action.payload.data;
+        evaluate(state,action){//perform when equals to is pressed
+            if(state.num.length==0 || state.num=='0'){
+                let st = action.payload.data;
+                let op = st[st.length-1];
+                if(op!='+' || op!='-' || op!='*'|| op!= String.fromCharCode(247)){
+                    op = "";
+                    st = Number(st);
+                }
+                else st = st.substring(0,st.length-1);
+                state.num = Number(st)+""+op;
+            }
             else{
                 let str1 = action.payload.data;
                 let str2 = state.num;
@@ -78,9 +95,11 @@ const calcReducer = createSlice({
                 }
             }
         },
+        // clear all
         allClearOperation(state){
             state.num = "";
         },
+        //set your theme
         setTheme(state,{payload}){
             state.theme = payload.theme;
             state.check = payload.check;
