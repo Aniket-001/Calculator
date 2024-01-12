@@ -62,5 +62,13 @@ Visit [http://localhost:5173](http://localhost:5173) in your browser to use the 
 
 Feel free to reach out if you have any questions or need further assistance!
 
+## Sample
+
+![image](https://github.com/Aniket-001/Calculator/assets/77916146/1e766fd5-95ed-4bde-ad59-8ccf6a809eb8)
+
+![image](https://github.com/Aniket-001/Calculator/assets/77916146/b8ce811a-7e41-4581-b643-37adcd093d96)
+
+
+
 
 
